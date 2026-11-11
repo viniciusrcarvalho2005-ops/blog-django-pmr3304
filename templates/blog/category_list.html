@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
+  <p class="kicker">Explorar</p>
   <h2>Categorias</h2>
-  <ul>
+  <ul class="post-list">
     {% for category in category_list %}
       <li>
         <a href="{% url 'category_detail' category.pk %}">{{ category.name }}</a>
-        <span class="meta">– {{ category.posts.count }} post(s)</span>
+        <span class="meta">{{ category.posts.count }} post(s) · {{ category.description }}</span>
       </li>
     {% empty %}
       <li>Nenhuma categoria cadastrada.</li>

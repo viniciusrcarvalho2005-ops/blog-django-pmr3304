@@ -1,4 +1,4 @@
-# Blog de Engenharia – PMR3304
+# Caderno de Engenharia – PMR3304
 
 Segunda entrega de laboratório de PMR3304 (Sistemas de Informação): aplicação CRUD em Django com posts, comentários e categorias.
 

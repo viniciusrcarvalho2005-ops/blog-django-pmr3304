@@ -1,16 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
   {% if category %}
-    <h2>Categoria: {{ category.name }}</h2>
-    <p class="meta">{{ category.description }}</p>
+    <p class="kicker">Categoria</p>
+    <h2>{{ category.name }}</h2>
+    <p class="lead">{{ category.description }}</p>
   {% else %}
+    <p class="kicker">Últimas publicações</p>
     <h2>Posts</h2>
   {% endif %}
-  <ul>
+  <ul class="post-list">
     {% for post in post_list %}
       <li>
         <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
-        <span class="meta">– {{ post.posted_at|date:"d/m/Y H:i" }}</span>
+        <span class="meta">{{ post.posted_at|date:"d/m/Y · H:i" }}</span>
       </li>
     {% empty %}
       <li>Nenhum post ainda.</li>

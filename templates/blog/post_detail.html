@@ -2,15 +2,15 @@
 {% block title %}{{ post.title }}{% endblock %}
 {% block content %}
   <article>
-    <h2>{{ post.title }}</h2>
-    <p class="meta">Publicado em {{ post.posted_at|date:"d/m/Y \à\s H:i" }}</p>
-    <p class="meta">Categorias:
+    <p class="kicker">
       {% for category in post.categories.all %}
-        <a href="{% url 'category_detail' category.pk %}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}
+        <a href="{% url 'category_detail' category.pk %}">{{ category.name }}</a>{% if not forloop.last %} · {% endif %}
       {% empty %}
-        nenhuma
+        Sem categoria
       {% endfor %}
     </p>
+    <h2>{{ post.title }}</h2>
+    <p class="meta">Publicado em {{ post.posted_at|date:"d/m/Y \à\s H:i" }}</p>
     {{ post.content|safe }}
   </article>
   <p class="actions">
@@ -20,10 +20,10 @@
   </p>
   <section>
     <h3>Comentários ({{ post.comments.count }})</h3>
-    <p><a href="{% url 'comment_create' post.pk %}">Escrever um comentário</a></p>
+    <p><a class="btn" href="{% url 'comment_create' post.pk %}">Escrever um comentário</a></p>
     {% for comment in post.comments.all %}
       <div class="comment">
-        <p class="meta"><strong>{{ comment.author.username }}</strong> – {{ comment.posted_at|date:"d/m/Y H:i" }}</p>
+        <p class="meta"><strong>{{ comment.author.username }}</strong> · {{ comment.posted_at|date:"d/m/Y H:i" }}</p>
         <p>{{ comment.text|linebreaksbr }}</p>
       </div>
     {% empty %}
