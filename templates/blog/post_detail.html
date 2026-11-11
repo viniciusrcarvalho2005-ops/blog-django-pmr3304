@@ -4,6 +4,13 @@
   <article>
     <h2>{{ post.title }}</h2>
     <p class="meta">Publicado em {{ post.posted_at|date:"d/m/Y \à\s H:i" }}</p>
+    <p class="meta">Categorias:
+      {% for category in post.categories.all %}
+        <a href="{% url 'category_detail' category.pk %}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}
+      {% empty %}
+        nenhuma
+      {% endfor %}
+    </p>
     {{ post.content|safe }}
   </article>
   <p class="actions">
