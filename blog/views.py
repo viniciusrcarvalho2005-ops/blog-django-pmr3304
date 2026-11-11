@@ -1,8 +1,8 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
+from .forms import CommentForm
 from .models import Category, Comment, Post
 
 
@@ -40,14 +40,19 @@ class PostDeleteView(DeleteView):
     success_url = reverse_lazy('post_list')
 
 
-class CommentCreateView(LoginRequiredMixin, CreateView):
+class CommentCreateView(CreateView):
     model = Comment
-    fields = ['text']
+    form_class = CommentForm
     template_name = 'blog/comment_form.html'
 
     def dispatch(self, request, *args, **kwargs):
         self.post_obj = get_object_or_404(Post, pk=kwargs['pk'])
         return super().dispatch(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -56,7 +61,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.post = self.post_obj
-        form.instance.author = self.request.user
+        form.instance.author = form.get_author()
         return super().form_valid(form)
 
     def get_success_url(self):

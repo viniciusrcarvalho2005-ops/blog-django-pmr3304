@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-  <h2>Comentar em "{{ post.title }}"</h2>
-  <p class="meta">Comentando como <strong>{{ user.username }}</strong></p>
+  <p class="kicker">Novo comentário</p>
+  <h2>{{ post.title }}</h2>
+  {% if user.is_authenticated %}
+    <p class="meta">Comentando como <strong>{{ user.username }}</strong></p>
+  {% else %}
+    <p class="meta">Basta informar seu nome; não é preciso ter conta.</p>
+  {% endif %}
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
