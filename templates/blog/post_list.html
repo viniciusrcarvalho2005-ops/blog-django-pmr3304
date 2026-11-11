@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-  <h2>{% block list_title %}Posts{% endblock %}</h2>
-  {% block list_header %}{% endblock %}
+  {% if category %}
+    <h2>Categoria: {{ category.name }}</h2>
+    <p class="meta">{{ category.description }}</p>
+  {% else %}
+    <h2>Posts</h2>
+  {% endif %}
   <ul>
     {% for post in post_list %}
       <li>
