@@ -1,13 +1,13 @@
-# Caderno de Engenharia – PMR3304
+# Caderno de Engenharia
 
-Segunda entrega de laboratório de PMR3304 (Sistemas de Informação): aplicação CRUD em Django com posts, comentários e categorias.
+Blog em Django feito para a segunda entrega de laboratório de PMR3304.
 
 ## Rodar localmente
 
 ```bash
 pip install -r requirements.txt
 python manage.py migrate
-python manage.py seed_blog        # dados de exemplo
+python manage.py seed_blog
 python manage.py createsuperuser
 python manage.py runserver
 ```

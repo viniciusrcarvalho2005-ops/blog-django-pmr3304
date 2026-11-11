@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# Script de build usado no Render
 set -o errexit
 
 pip install -r requirements.txt

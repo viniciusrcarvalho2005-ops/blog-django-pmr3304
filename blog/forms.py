@@ -19,7 +19,6 @@ class CommentForm(forms.ModelForm):
         fields = ['author_name', 'text']
 
     def get_author(self):
-        """Usuário do Django com o nome informado; é criado se ainda não existir."""
         User = get_user_model()
         name = self.cleaned_data['author_name'].strip()
         author = User.objects.filter(username__iexact=name).first()
